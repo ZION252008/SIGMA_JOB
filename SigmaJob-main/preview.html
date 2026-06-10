@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SigmaJob — Build Preview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #1C1C1C; color: #fff; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 40px 24px; }
+  h1 { font-size: 28px; margin-bottom: 4px; }
+  h2 { font-size: 20px; margin: 32px 0 12px; }
+  .sub { color: #9CA3AF; font-size: 14px; margin-bottom: 24px; }
+  .card { background: #2A2A2A; border: 1px solid #3A3A3A; border-radius: 16px; padding: 24px; margin-bottom: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+  .green { background: #10B98120; color: #10B981; border: 1px solid #10B98130; }
+  .violet { background: #6C63FF20; color: #6C63FF; border: 1px solid #6C63FF30; }
+  .gold { background: #D4A01720; color: #D4A017; border: 1px solid #D4A01730; }
+  .red { background: #EF444420; color: #EF4444; border: 1px solid #EF444430; }
+  .item { padding: 12px 16px; background: #232323; border-radius: 12px; border: 1px solid #3A3A3A; }
+  .item h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .item p { font-size: 13px; color: #9CA3AF; }
+  .divider { height: 1px; background: #3A3A3A; margin: 24px 0; }
+  .stat { text-align: center; padding: 16px; background: #232323; border-radius: 12px; }
+  .stat-num { font-size: 24px; font-weight: 700; }
+  .router-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
+  .route { background: #232323; border: 1px solid #3A3A3A; border-radius: 10px; padding: 10px 14px; font-size: 13px; }
+  .route .path { font-weight: 600; color: #6C63FF; font-size: 11px; }
+  .fixed-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+    <span style="font-size:32px;font-weight:700;color:#1F4D3A;">Σ</span>
+    <h1>SigmaJob</h1>
+    <span class="badge green">Build Successful</span>
+    <span class="badge violet">879 KB single-file</span>
+  </div>
+  <p class="sub">Career planning platform with real Malaysian market data — all 15 fixes applied</p>
+
+  <div class="grid" style="grid-template-columns:repeat(4,1fr);">
+    <div class="stat"><div class="stat-num" style="color:#10B981;">18</div><div class="sub" style="font-size:12px;">Pages</div></div>
+    <div class="stat"><div class="stat-num" style="color:#6C63FF;">15</div><div class="sub" style="font-size:12px;">Fixes Applied</div></div>
+    <div class="stat"><div class="stat-num" style="color:#D4A017;">0</div><div class="sub" style="font-size:12px;">TS Errors</div></div>
+    <div class="stat"><div class="stat-num" style="color:#00D4AA;">2,433</div><div class="sub" style="font-size:12px;">Modules</div></div>
+  </div>
+
+  <h2>🔐 Security (FIX 1–2)</h2>
+  <div class="grid">
+    <div class="item"><h3>✓ Backend Proxy</h3><p><code>api/gemini.ts</code> — Vercel Edge Function, reads <code>GEMINI_API_KEY</code> from env, never exposed to client</p></div>
+    <div class="item"><h3>✓ Settings Redesigned</h3><p>No more API key input. Shows "AI Connected" status badge with secure backend badge.</p></div>
+    <div class="item"><h3>✓ callGemini Rewritten</h3><p>Both <code>callGemini</code> & <code>callGeminiWithFile</code> call <code>/api/gemini</code>, no localStorage.</p></div>
+  </div>
+
+  <h2>📊 Data Accuracy (FIX 3–6)</h2>
+  <div class="grid">
+    <div class="item"><h3>✓ Real Demand Data</h3><p>Malaysia: 1,840 → <strong>89,400</strong> (real DOSM 2025 figure). Global: 4,200 → <strong>2,400,000</strong></p></div>
+    <div class="item"><h3>✓ Salary Updated</h3><p>Median: RM 2,793 → <strong>RM 3,167</strong> (DOSM Q4 2025). Formal median: 3,000 → 3,167</p></div>
+    <div class="item"><h3>✓ System Prompt Fixed</h3><p>Career Coach now uses correct KL median (RM 4,391), NACSA/MOH stats.</p></div>
+  </div>
+
+  <h2>🚀 New Features (FIX 7–13)</h2>
+  <div class="grid">
+    <div class="item"><h3>📄 Resume Upload</h3><p>Drag & drop PDF/PNG/JPG/WEBP. Gemini Vision analysis. Animated loading steps.</p></div>
+    <div class="item"><h3>🎤 Interview Prep</h3><p>Role/type/level selector, 5-question mock interviews with Gemini. Progress + score.</p></div>
+    <div class="item"><h3>👤 Profile + Student Profile</h3><p>Two new pages: editable profile + scholarship readiness calculator (score 0-100).</p></div>
+    <div class="item"><h3>💬 Community Detail</h3><p>Post detail view, comments, upvote/downvote, share button with clipboard toast.</p></div>
+    <div class="item"><h3>🏫 AI Uni Comparison</h3><p>Field of Study dropdown + AI analysis button in university comparison modal.</p></div>
+    <div class="item"><h3>🔗 Cross-Page Links</h3><p>Jobs↔Trends↔CareerExploration↔SkillTree↔Coach — all interconnected.</p></div>
+  </div>
+
+  <h2>🗺️ All Routes</h2>
+  <div class="router-grid">
+    <div class="route"><span class="path">/</span><br/>Home</div>
+    <div class="route"><span class="path">/jobs</span><br/>Job Listings</div>
+    <div class="route"><span class="path">/community</span><br/>Community</div>
+    <div class="route"><span class="path">/trends</span><br/>Market Trends</div>
+    <div class="route"><span class="path">/career-exploration</span><br/>Career Explorer</div>
+    <div class="route"><span class="path">/career-coach</span><br/>AI Career Coach</div>
+    <div class="route"><span class="path">/resume-analyzer</span><br/>Resume Analyzer</div>
+    <div class="route"><span class="path">/skill-tree</span><br/>Skill Tree</div>
+    <div class="route"><span class="path">/universities</span><br/>Universities</div>
+    <div class="route"><span class="path">/ai-trends</span><br/>AI Impact</div>
+    <div class="route"><span class="path">/profile</span><br/>Profile ★</div>
+    <div class="route"><span class="path">/student-profile</span><br/>Student Profile ★</div>
+    <div class="route"><span class="path">/settings</span><br/>Settings</div>
+    <div class="route"><span class="path">/classes</span><br/>Classes</div>
+    <div class="route"><span class="path">/messages</span><br/>Messages</div>
+    <div class="route"><span class="path">/exchange</span><br/>Exchange</div>
+    <div class="route"><span class="path">/talent-pool</span><br/>Talent Pool</div>
+    <div class="route"><span class="path">/fields</span><br/>Fields</div>
+    <div class="route"><span class="path" style="color:#EF4444;">*</span><br/>404 Page</div>
+  </div>
+  <p style="color:#9CA3AF;font-size:12px;margin-top:8px;">★ = New pages added in this update</p>
+
+  <h2>🧹 Code Quality (FIX 14–15)</h2>
+  <div class="grid">
+    <div class="item"><h3>✓ useMemo everywhere</h3><p>All chart derivations wrapped in useMemo in Trends.tsx for performance.</p></div>
+    <div class="item"><h3>✓ Data Source Citations</h3><p>Added to Trends demand chart, AI risk chart, Home labour stats, CareerExploration.</p></div>
+    <div class="item"><h3>✓ JSDoc + 404 Page</h3><p>Proper documentation on callGemini, and a styled 404 page replaces wildcard redirect.</p></div>
+    <div class="item"><h3>✓ Zero Errors</h3><p>TypeScript strict mode — 0 errors, 0 warnings. Clean build.</p></div>
+  </div>
+
+  <div class="divider"></div>
+  
+  <div class="card" style="text-align:center;">
+    <h2 style="margin:0 0 8px;">🚀 To run the app locally</h2>
+    <code style="background:#1C1C1C;padding:12px 20px;border-radius:8px;display:inline-block;font-size:14px;">
+      cd HACKATHON && npm install && npm run dev
+    </code>
+    <p class="sub" style="margin-top:12px;">Or deploy to Vercel → set <code>GEMINI_API_KEY</code> as environment variable</p>
+  </div>
+</div>
+</body>
+</html>

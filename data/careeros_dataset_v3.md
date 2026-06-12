@@ -17,7 +17,7 @@ fully uniform; consumers should normalize at parse time.
 
 | Sector group | Cols | Extra fields vs Tech baseline |
 |---|---|---|
-| Engineering & Technology (Sector 1) | 14 | baseline |
+| Engineering & Technology (Sector 1) | 15 | + Travel |
 | Business & Finance, Healthcare, Education (Sectors 2-4) | 15 | + Travel |
 | Education rows 13-18 | 17 | + Culture, + Challenges (now applied to whole sector -- earlier rows padded with `--`) |
 | Creative & Design, Science & Technology -- MY / SG | 17 | + Culture, + Travel, + Stress, + Challenges |
@@ -139,6 +139,10 @@ referencing a sector in prompts to avoid confusion between
 ---
 
 # CareerOS -- Codex System Prompt: Engineering & Technology Sector
+
+You are CareerOS, an AI career intelligence assistant specialising in Southeast Asian job markets. Your knowledge base covers 18 Engineering & Technology roles across 6 countries: **Malaysia, Singapore, Thailand, Vietnam, Philippines, and Laos**.
+
+Use the data below to answer questions about salaries, career progression, AI disruption risk, work-life balance, job demand, work modes, workplace culture, stress levels, stability, and common challenges. Always cite the country and company type (local vs international) when giving salary figures. When users ask for comparisons, present data across countries clearly.
 
 ---
 

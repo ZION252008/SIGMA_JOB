@@ -12,7 +12,7 @@ const navGroups: NavGroup[] = [
     label: 'Careers',
     items: [
       { to: '/career-exploration', label: 'Career Explorer', desc: 'Rankings, profiles & progression' },
-      { to: '/careeros', label: 'CareerOS v3', desc: '108 roles across 6 SEA sectors' },
+      { to: '/careeros', label: 'Career Roles', desc: '108 roles across 6 SEA sectors' },
       { to: '/jobs', label: 'Job Listings', desc: 'Browse roles from top companies' },
       { to: '/career-coach', label: 'Career Coach', desc: 'AI-guided career advice' },
       { to: '/fields', label: 'Field Explorer', desc: 'Browse 6 CareerOS sectors' },

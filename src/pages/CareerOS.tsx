@@ -184,7 +184,7 @@ export default function CareerOS({ dark }: { dark: boolean }) {
     <div className={`${bg} min-h-screen pt-16 relative z-[1]`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
         <h1 ref={titleRef.ref} className={revealCls(titleRef.revealed, 'type-display', text, 'mb-2')}>
-          CareerOS Dataset v3
+          Career Roles
         </h1>
         <p ref={subtitleRef.ref} className={revealCls(subtitleRef.revealed, sub, 'mb-6')}>
           6 sectors · 108 roles · 6 SEA countries — salary, demand, progression & market data

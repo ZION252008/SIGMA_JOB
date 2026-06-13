@@ -22,7 +22,7 @@ fully uniform; consumers should normalize at parse time.
 | Education rows 13-18 | 17 | + Culture, + Challenges (now applied to whole sector -- earlier rows padded with `--`) |
 | Creative & Design, Science & Technology -- MY / SG | 17 | + Culture, + Travel, + Stress, + Challenges |
 | Creative & Design, Science & Technology -- PH / Laos / VN / TH | 8 | salary tiers + Demand only (no AI Risk, WLB, Hrs/Wk, Stability, Work Mode, Stress) |
-| Engineering & Technology -- Laos | 11 | USD only, 3 tiers (Fresh Grad / Average / Senior) -- no Local/Intl split |
+| Engineering & Technology -- Laos | 13 | LAK millions/month, full Local/Intl split -- aligned with all other countries |
 
 ### Currency & unit conventions
 
@@ -33,7 +33,7 @@ fully uniform; consumers should normalize at parse time.
 | Thailand | `THB 20,000-30,000` (ranges) | `THB 18,000` (formatted) |
 | Philippines | `PHP ...` (ranges) | `PHP 18,000` (formatted) |
 | Vietnam | VND millions/month, e.g. `8-15M` | `VND 7m` (millions, formatted) |
-| Laos -- Tech | **USD** (LAK too volatile) | n/a |
+| Laos -- Tech | **LAK millions/month**, Local/Intl split (aligned with other countries) | n/a |
 | Laos -- B&F / Health / Edu | LAK millions/month | n/a |
 | Laos -- Creative / Science | n/a | `LAK 4.5m` (millions, formatted) |
 
@@ -45,8 +45,7 @@ fully uniform; consumers should normalize at parse time.
 - **Demand figures appear reused across countries** for several roles
   (e.g. CTO ~= 12,000 across MY/SG/TH/VN/PH). Treat as global-order-of-magnitude
   estimates, not country-specific counts.
-- **Engineering & Technology -- Laos** uses a 3-tier USD scale and is **not
-  row-for-row comparable** with the Local/Intl split used elsewhere.
+- **Engineering & Technology -- Laos** now uses LAK millions/month with the full Local/Intl split, matching all other countries in this sector.
 - **Creative / Science thin tables** (PH, Laos, VN, TH) omit AI Risk, WLB,
   Hrs/Wk, Stability, Work Mode, and Stress. Use MY/SG values from the same
   sector as a regional proxy, or render those fields as `n/a` in UI.
@@ -60,9 +59,9 @@ P0 -- structural
   these fields).
 - Education progression header confirmed as "All 18 Education & Social
   Impact Roles" (no longer says "All 12").
-- Engineering & Technology -- Laos table flagged as `employer_scope=all`
-  with USD-only 3-tier schema; do NOT use for cross-country Local vs Intl
-  salary-rank charts. See Sector Registry below.
+- Engineering & Technology -- Laos table replaced with full LAK millions/month
+  Local/Intl split schema (13 columns), aligned with all other country tables
+  in this sector. Previous USD-only 3-tier schema removed.
 
 P1 -- schema alignment
 - Engineering & Technology country tables: added `Travel` column (default
@@ -119,10 +118,11 @@ referencing a sector in prompts to avoid confusion between
 
 ### Known data-source caveats kept (not auto-fixable)
 
-- Identical `Local == Intl` salary cells in Sector 1-4 country tables
-  for MY / TH / VN / PH indicate the international premium was not
-  separately sourced. Apply a 10-40 % multinational premium when
-  modelling intl-employer scenarios if your downstream needs it.
+- Local vs International salary splits for Engineering & Technology are
+  now differentiated for all 6 countries based on market research
+  (Randstad MY 2025, aniday SG 2026, secondtalent PH 2026, itviec VN
+  2025-2026, nucamp TH 2026, playroll LA 2026). Premiums by country:
+  MY 20-30%, SG 10-20%, TH 30-35%, VN 35-45%, PH 40-50%, LA 20-30%.
 - Identical Demand figures across countries for the same role are
   global order-of-magnitude estimates. Replace with country-specific
   figures from JobStreet / LinkedIn / local job boards before using
@@ -226,24 +226,24 @@ referencing a sector in prompts to avoid confusion between
 
 | Job Title | Local Fresh Grad | Local Avg | Local Senior | Intl Fresh Grad | Intl Avg | Intl Senior | Demand (6mo) | AI Risk | WLB% | Hrs/Wk | Stability% | Work Mode | Travel | Stress |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Junior Frontend Developer | RM 3,000-4,000 | RM 6,000-7,000 | RM 9,000-12,000 | RM 3,000-4,000 | RM 6,000-7,000 | RM 9,000-12,000 | ~120,000 | 35% | 70% | 40 | 85% | Hybrid | Low | Medium |
-| Junior Backend Developer | RM 3,000-4,000 | RM 4,000-6,000 | RM 8,000-12,000 | RM 3,000-4,000 | RM 4,000-6,000 | RM 8,000-12,000 | ~95,000 | 40% | 68% | 40-45 | 80% | Hybrid | Low | Medium |
-| QA Automation Engineer | RM 3,500-5,000 | RM 6,000-8,000 | RM 11,000-15,000 | RM 3,500-5,000 | RM 6,000-8,000 | RM 11,000-15,000 | ~40,000 | 30% | 72% | 40 | 85% | Hybrid | Low | Medium |
-| Systems Analyst | RM 2,500-4,400 | RM 6,300 | RM 8,000-13,000 | RM 2,500-4,400 | RM 6,300 | RM 8,000-13,000 | ~60,000 | 25% | 70% | 40-45 | 82% | Hybrid | Low | Medium |
-| Database Administrator | RM 3,500-4,500 | RM 7,000-9,000 | RM 12,000-18,000 | RM 3,500-4,500 | RM 7,000-9,000 | RM 12,000-18,000 | ~45,000 | 28% | 73% | 40 | 85% | Hybrid | Low | Medium |
-| Cloud Support Specialist | RM 3,000-4,000 | RM 6,000-8,000 | RM 12,000-15,000 | RM 3,000-4,000 | RM 6,000-8,000 | RM 12,000-15,000 | ~70,000 | 20% | 75% | 40-45 | 88% | Hybrid/Remote | Low | Medium |
-| Full Stack Engineer | RM 3,500-5,000 | RM 8,000-10,000 | RM 15,000-20,000 | RM 3,500-5,000 | RM 8,000-10,000 | RM 15,000-20,000 | ~110,000 | 38% | 68% | 40-45 | 82% | Hybrid | Low | High |
-| Mobile Applications Engineer | RM 3,000-4,500 | RM 7,000-9,000 | RM 12,000-18,000 | RM 3,000-4,500 | RM 7,000-9,000 | RM 12,000-18,000 | ~85,000 | 42% | 67% | 40-45 | 80% | Hybrid | Low | High |
-| DevOps Build Engineer | RM 3,500-5,000 | RM 9,000-11,000 | RM 15,000-22,000 | RM 3,500-5,000 | RM 9,000-11,000 | RM 15,000-22,000 | ~60,000 | 25% | 70% | 40-45 | 87% | Hybrid | Low | High |
-| Information Security Officer | RM 4,000-6,000 | RM 12,000-15,000 | RM 20,000-30,000 | RM 4,000-6,000 | RM 12,000-15,000 | RM 20,000-30,000 | ~75,000 | 15% | 74% | 40-45 | 90% | Hybrid/On-site | Low | High |
-| Solutions Architect | RM 5,000-7,000 | RM 15,000-18,000 | RM 25,000-35,000 | RM 5,000-7,000 | RM 15,000-18,000 | RM 25,000-35,000 | ~65,000 | 20% | 72% | 40-45 | 88% | Hybrid | Low | High |
-| AI Integration Specialist | RM 4,500-6,000 | RM 12,000-15,000 | RM 20,000-28,000 | RM 4,500-6,000 | RM 12,000-15,000 | RM 20,000-28,000 | ~50,000 | 45% | 70% | 40-45 | 83% | Hybrid/Remote | Low | High |
-| Site Reliability Architect | RM 5,000-7,000 | RM 14,000-17,000 | RM 25,000-32,000 | RM 5,000-7,000 | RM 14,000-17,000 | RM 25,000-32,000 | ~40,000 | 22% | 68% | 40-50 | 87% | Hybrid | Low | High |
-| Data Platform Engineer | RM 4,000-6,000 | RM 12,000-15,000 | RM 20,000-28,000 | RM 4,000-6,000 | RM 12,000-15,000 | RM 20,000-28,000 | ~55,000 | 30% | 70% | 40-45 | 85% | Hybrid | Low | Medium |
-| Principal Infrastructure Lead | RM 6,000-8,000 | RM 18,000-22,000 | RM 30,000-40,000 | RM 6,000-8,000 | RM 18,000-22,000 | RM 30,000-40,000 | ~25,000 | 18% | 72% | 40-45 | 90% | Hybrid/On-site | Low | High |
-| SecOps Director | RM 7,000-9,000 | RM 20,000-25,000 | RM 35,000-50,000 | RM 7,000-9,000 | RM 20,000-25,000 | RM 35,000-50,000 | ~20,000 | 12% | 74% | 40-45 | 92% | On-site/Hybrid | Low | High |
-| Core UI Framework Author | RM 5,000-7,000 | RM 15,000-18,000 | RM 25,000-35,000 | RM 5,000-7,000 | RM 15,000-18,000 | RM 25,000-35,000 | ~15,000 | 40% | 68% | 40-45 | 80% | Hybrid/Remote | Low | Medium |
-| Chief Technology Officer | RM 10,000-15,000 | RM 30,000-40,000 | RM 50,000-70,000 | RM 10,000-15,000 | RM 30,000-40,000 | RM 50,000-70,000 | ~12,000 | 10% | 75% | 45-50 | 95% | Hybrid/On-site | Low | High |
+| Junior Frontend Developer | RM 3,000-4,000 | RM 6,000-7,000 | RM 9,000-12,000 | RM 3,500-5,000 | RM 7,500-9,000 | RM 12,000-16,000 | ~120,000 | 35% | 70% | 40 | 85% | Hybrid | Low | Medium |
+| Junior Backend Developer | RM 3,000-4,000 | RM 4,000-6,000 | RM 8,000-12,000 | RM 3,500-5,000 | RM 5,500-8,000 | RM 11,000-16,000 | ~95,000 | 40% | 68% | 40-45 | 80% | Hybrid | Low | Medium |
+| QA Automation Engineer | RM 3,500-5,000 | RM 6,000-8,000 | RM 11,000-15,000 | RM 4,000-6,000 | RM 7,500-10,500 | RM 14,000-20,000 | ~40,000 | 30% | 72% | 40 | 85% | Hybrid | Low | Medium |
+| Systems Analyst | RM 2,500-4,400 | RM 6,000-8,000 | RM 8,000-13,000 | RM 3,000-5,000 | RM 7,500-10,000 | RM 11,000-17,000 | ~60,000 | 25% | 70% | 40-45 | 82% | Hybrid | Low | Medium |
+| Database Administrator | RM 3,500-4,500 | RM 7,000-9,000 | RM 12,000-18,000 | RM 4,000-5,500 | RM 9,000-12,000 | RM 16,000-24,000 | ~45,000 | 28% | 73% | 40 | 85% | Hybrid | Low | Medium |
+| Cloud Support Specialist | RM 3,000-4,000 | RM 6,000-8,000 | RM 12,000-15,000 | RM 3,500-5,000 | RM 7,500-10,500 | RM 15,000-20,000 | ~70,000 | 20% | 75% | 40-45 | 88% | Hybrid/Remote | Low | Medium |
+| Full Stack Engineer | RM 3,500-5,000 | RM 8,000-10,000 | RM 15,000-20,000 | RM 4,500-6,500 | RM 10,500-13,500 | RM 20,000-28,000 | ~110,000 | 38% | 68% | 40-45 | 82% | Hybrid | Low | High |
+| Mobile Applications Engineer | RM 3,000-4,500 | RM 7,000-9,000 | RM 12,000-18,000 | RM 3,800-5,500 | RM 9,000-12,000 | RM 16,000-24,000 | ~85,000 | 42% | 67% | 40-45 | 80% | Hybrid | Low | High |
+| DevOps Build Engineer | RM 3,500-5,000 | RM 9,000-11,000 | RM 15,000-22,000 | RM 4,500-6,500 | RM 12,000-15,000 | RM 20,000-30,000 | ~60,000 | 25% | 70% | 40-45 | 87% | Hybrid | Low | High |
+| Information Security Officer | RM 4,000-6,000 | RM 12,000-15,000 | RM 20,000-30,000 | RM 5,000-8,000 | RM 15,000-20,000 | RM 27,000-40,000 | ~75,000 | 15% | 74% | 40-45 | 90% | Hybrid/On-site | Low | High |
+| Solutions Architect | RM 5,000-7,000 | RM 15,000-18,000 | RM 25,000-35,000 | RM 6,500-9,000 | RM 19,000-24,000 | RM 33,000-47,000 | ~65,000 | 20% | 72% | 40-45 | 88% | Hybrid | Low | High |
+| AI Integration Specialist | RM 4,500-6,000 | RM 12,000-15,000 | RM 20,000-28,000 | RM 6,000-8,000 | RM 16,000-20,000 | RM 28,000-38,000 | ~50,000 | 45% | 70% | 40-45 | 83% | Hybrid/Remote | Low | High |
+| Site Reliability Architect | RM 5,000-7,000 | RM 14,000-17,000 | RM 25,000-32,000 | RM 6,500-9,000 | RM 18,000-23,000 | RM 33,000-43,000 | ~40,000 | 22% | 68% | 40-50 | 87% | Hybrid | Low | High |
+| Data Platform Engineer | RM 4,000-6,000 | RM 12,000-15,000 | RM 20,000-28,000 | RM 5,000-7,500 | RM 15,000-20,000 | RM 27,000-38,000 | ~55,000 | 30% | 70% | 40-45 | 85% | Hybrid | Low | Medium |
+| Principal Infrastructure Lead | RM 6,000-8,000 | RM 18,000-22,000 | RM 30,000-40,000 | RM 7,500-10,000 | RM 23,000-30,000 | RM 40,000-54,000 | ~25,000 | 18% | 72% | 40-45 | 90% | Hybrid/On-site | Low | High |
+| SecOps Director | RM 7,000-9,000 | RM 20,000-25,000 | RM 35,000-50,000 | RM 9,000-12,000 | RM 26,000-33,000 | RM 46,000-66,000 | ~20,000 | 12% | 74% | 40-45 | 92% | On-site/Hybrid | Low | High |
+| Core UI Framework Author | RM 5,000-7,000 | RM 15,000-18,000 | RM 25,000-35,000 | RM 6,500-9,000 | RM 19,000-24,000 | RM 33,000-46,000 | ~15,000 | 40% | 68% | 40-45 | 80% | Hybrid/Remote | Low | Medium |
+| Chief Technology Officer | RM 10,000-15,000 | RM 30,000-40,000 | RM 50,000-70,000 | RM 13,000-19,000 | RM 39,000-53,000 | RM 67,000-95,000 | ~12,000 | 10% | 75% | 45-50 | 95% | Hybrid/On-site | Low | High |
 
 **Malaysia Tech Context:** Culture: collaborative, fast-paced, hybrid-forward. WLB generally strong for the region. Kuala Lumpur-centric talent market. Common challenges: tight deadlines, keeping up with frameworks, infrastructure scaling, regulatory compliance (PDPA). Malaysia has one of the highest Cloud Support Specialist WLB scores (75%) in SEA.
 
@@ -253,24 +253,24 @@ referencing a sector in prompts to avoid confusion between
 
 | Job Title | Local Fresh Grad | Local Avg | Local Senior | Intl Fresh Grad | Intl Avg | Intl Senior | Demand (6mo) | AI Risk | WLB% | Hrs/Wk | Stability% | Work Mode | Travel | Stress |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Junior Frontend Developer | SGD 3,500-4,500 | SGD 6,000-8,000 | SGD 9,000-13,000 | SGD 3,500-4,500 | SGD 6,000-8,000 | SGD 9,000-13,000 | ~120,000 | 35% | 68% | 42-45 | 85% | Hybrid | Low | Medium |
-| Junior Backend Developer | SGD 3,500-5,000 | SGD 6,500-9,000 | SGD 10,000-15,000 | SGD 3,500-5,000 | SGD 6,500-9,000 | SGD 10,000-15,000 | ~95,000 | 40% | 66% | 42-45 | 80% | Hybrid | Low | Medium |
-| QA Automation Engineer | SGD 3,500-4,500 | SGD 6,000-8,000 | SGD 9,000-13,000 | SGD 3,500-4,500 | SGD 6,000-8,000 | SGD 9,000-13,000 | ~40,000 | 30% | 70% | 42 | 85% | Hybrid | Low | Medium |
-| Systems Analyst | SGD 3,200-4,500 | SGD 6,000-8,500 | SGD 9,500-14,000 | SGD 3,200-4,500 | SGD 6,000-8,500 | SGD 9,500-14,000 | ~60,000 | 25% | 68% | 42-45 | 82% | Hybrid | Low | Medium |
-| Database Administrator | SGD 3,500-4,800 | SGD 7,000-9,500 | SGD 11,000-16,000 | SGD 3,500-4,800 | SGD 7,000-9,500 | SGD 11,000-16,000 | ~45,000 | 28% | 70% | 42 | 85% | Hybrid | Low | Medium |
-| Cloud Support Specialist | SGD 3,500-4,500 | SGD 6,500-9,000 | SGD 10,000-15,000 | SGD 3,500-4,500 | SGD 6,500-9,000 | SGD 10,000-15,000 | ~70,000 | 20% | 72% | 42-45 | 88% | Hybrid/Remote | Low | Medium |
-| Full Stack Engineer | SGD 4,000-5,500 | SGD 7,500-11,000 | SGD 13,000-20,000 | SGD 4,000-5,500 | SGD 7,500-11,000 | SGD 13,000-20,000 | ~110,000 | 38% | 65% | 42-48 | 82% | Hybrid | Low | High |
-| Mobile Applications Engineer | SGD 3,800-5,000 | SGD 7,000-10,000 | SGD 12,000-18,000 | SGD 3,800-5,000 | SGD 7,000-10,000 | SGD 12,000-18,000 | ~85,000 | 42% | 65% | 42-47 | 80% | Hybrid | Low | High |
-| DevOps Build Engineer | SGD 4,500-6,000 | SGD 9,000-13,000 | SGD 15,000-22,000 | SGD 4,500-6,000 | SGD 9,000-13,000 | SGD 15,000-22,000 | ~60,000 | 25% | 67% | 42-48 | 87% | Hybrid | Low | High |
-| Information Security Officer | SGD 5,000-7,000 | SGD 10,000-15,000 | SGD 18,000-28,000 | SGD 5,000-7,000 | SGD 10,000-15,000 | SGD 18,000-28,000 | ~75,000 | 15% | 70% | 42-47 | 90% | Hybrid/On-site | Low | High |
-| Solutions Architect | SGD 6,000-8,000 | SGD 12,000-18,000 | SGD 20,000-27,000 | SGD 6,000-8,000 | SGD 12,000-18,000 | SGD 20,000-27,000 | ~65,000 | 20% | 68% | 42-47 | 88% | Hybrid | Low | High |
-| AI Integration Specialist | SGD 5,500-7,500 | SGD 11,000-16,000 | SGD 18,000-26,000 | SGD 5,500-7,500 | SGD 11,000-16,000 | SGD 18,000-26,000 | ~50,000 | 45% | 67% | 42-47 | 83% | Hybrid/Remote | Low | High |
-| Site Reliability Architect | SGD 6,000-8,000 | SGD 12,000-17,000 | SGD 20,000-28,000 | SGD 6,000-8,000 | SGD 12,000-17,000 | SGD 20,000-28,000 | ~40,000 | 22% | 64% | 43-52 | 87% | Hybrid | Low | High |
-| Data Platform Engineer | SGD 5,500-7,500 | SGD 10,000-15,000 | SGD 17,000-25,000 | SGD 5,500-7,500 | SGD 10,000-15,000 | SGD 17,000-25,000 | ~55,000 | 30% | 68% | 42-46 | 85% | Hybrid | Low | Medium |
-| Principal Infrastructure Lead | SGD 7,000-9,500 | SGD 15,000-22,000 | SGD 25,000-38,000 | SGD 7,000-9,500 | SGD 15,000-22,000 | SGD 25,000-38,000 | ~25,000 | 18% | 68% | 42-47 | 90% | Hybrid/On-site | Low | High |
-| SecOps Director | SGD 8,000-11,000 | SGD 18,000-25,000 | SGD 30,000-45,000 | SGD 8,000-11,000 | SGD 18,000-25,000 | SGD 30,000-45,000 | ~20,000 | 12% | 70% | 42-47 | 92% | On-site/Hybrid | Low | High |
-| Core UI Framework Author | SGD 5,500-7,500 | SGD 11,000-16,000 | SGD 18,000-26,000 | SGD 5,500-7,500 | SGD 11,000-16,000 | SGD 18,000-26,000 | ~15,000 | 40% | 66% | 42-46 | 80% | Hybrid/Remote | Low | Medium |
-| Chief Technology Officer | SGD 12,000-18,000 | SGD 25,000-35,000 | SGD 45,000-65,000 | SGD 12,000-18,000 | SGD 25,000-35,000 | SGD 45,000-65,000 | ~12,000 | 10% | 65% | 48-55 | 95% | On-site/Hybrid | Low | High |
+| Junior Frontend Developer | SGD 3,500-4,500 | SGD 6,000-8,000 | SGD 9,000-13,000 | SGD 4,000-5,500 | SGD 7,000-9,500 | SGD 10,500-15,500 | ~120,000 | 35% | 68% | 42-45 | 85% | Hybrid | Low | Medium |
+| Junior Backend Developer | SGD 3,500-5,000 | SGD 6,500-9,000 | SGD 10,000-15,000 | SGD 4,000-6,000 | SGD 7,500-10,500 | SGD 12,000-18,000 | ~95,000 | 40% | 66% | 42-45 | 80% | Hybrid | Low | Medium |
+| QA Automation Engineer | SGD 3,500-4,500 | SGD 6,000-8,000 | SGD 9,000-13,000 | SGD 4,000-5,500 | SGD 7,000-9,500 | SGD 10,500-15,500 | ~40,000 | 30% | 70% | 42 | 85% | Hybrid | Low | Medium |
+| Systems Analyst | SGD 3,200-4,500 | SGD 6,000-8,500 | SGD 9,500-14,000 | SGD 3,700-5,300 | SGD 7,000-10,000 | SGD 11,000-16,500 | ~60,000 | 25% | 68% | 42-45 | 82% | Hybrid | Low | Medium |
+| Database Administrator | SGD 3,500-4,800 | SGD 7,000-9,500 | SGD 11,000-16,000 | SGD 4,000-5,700 | SGD 8,000-11,000 | SGD 13,000-19,000 | ~45,000 | 28% | 70% | 42 | 85% | Hybrid | Low | Medium |
+| Cloud Support Specialist | SGD 3,500-4,500 | SGD 6,500-9,000 | SGD 10,000-15,000 | SGD 4,000-5,500 | SGD 7,500-10,500 | SGD 12,000-18,000 | ~70,000 | 20% | 72% | 42-45 | 88% | Hybrid/Remote | Low | Medium |
+| Full Stack Engineer | SGD 4,000-5,500 | SGD 7,500-11,000 | SGD 13,000-20,000 | SGD 4,800-6,800 | SGD 9,000-13,000 | SGD 15,500-24,000 | ~110,000 | 38% | 65% | 42-48 | 82% | Hybrid | Low | High |
+| Mobile Applications Engineer | SGD 3,800-5,000 | SGD 7,000-10,000 | SGD 12,000-18,000 | SGD 4,500-6,000 | SGD 8,000-12,000 | SGD 14,000-22,000 | ~85,000 | 42% | 65% | 42-47 | 80% | Hybrid | Low | High |
+| DevOps Build Engineer | SGD 4,500-6,000 | SGD 9,000-13,000 | SGD 15,000-22,000 | SGD 5,200-7,200 | SGD 10,500-15,500 | SGD 18,000-27,000 | ~60,000 | 25% | 67% | 42-48 | 87% | Hybrid | Low | High |
+| Information Security Officer | SGD 5,000-7,000 | SGD 10,000-15,000 | SGD 18,000-28,000 | SGD 5,800-8,500 | SGD 12,000-18,000 | SGD 21,500-34,000 | ~75,000 | 15% | 70% | 42-47 | 90% | Hybrid/On-site | Low | High |
+| Solutions Architect | SGD 6,000-8,000 | SGD 12,000-18,000 | SGD 20,000-27,000 | SGD 7,000-9,500 | SGD 14,000-21,500 | SGD 24,000-33,000 | ~65,000 | 20% | 68% | 42-47 | 88% | Hybrid | Low | High |
+| AI Integration Specialist | SGD 5,500-7,500 | SGD 11,000-16,000 | SGD 18,000-26,000 | SGD 6,500-9,000 | SGD 13,000-19,000 | SGD 21,500-32,000 | ~50,000 | 45% | 67% | 42-47 | 83% | Hybrid/Remote | Low | High |
+| Site Reliability Architect | SGD 6,000-8,000 | SGD 12,000-17,000 | SGD 20,000-28,000 | SGD 7,000-9,500 | SGD 14,000-20,000 | SGD 24,000-34,000 | ~40,000 | 22% | 64% | 43-52 | 87% | Hybrid | Low | High |
+| Data Platform Engineer | SGD 5,500-7,500 | SGD 10,000-15,000 | SGD 17,000-25,000 | SGD 6,300-8,800 | SGD 11,500-17,500 | SGD 20,000-30,000 | ~55,000 | 30% | 68% | 42-46 | 85% | Hybrid | Low | Medium |
+| Principal Infrastructure Lead | SGD 7,000-9,500 | SGD 15,000-22,000 | SGD 25,000-38,000 | SGD 8,000-11,000 | SGD 17,500-26,000 | SGD 30,000-46,000 | ~25,000 | 18% | 68% | 42-47 | 90% | Hybrid/On-site | Low | High |
+| SecOps Director | SGD 8,000-11,000 | SGD 18,000-25,000 | SGD 30,000-45,000 | SGD 9,200-13,000 | SGD 21,000-30,000 | SGD 36,000-54,000 | ~20,000 | 12% | 70% | 42-47 | 92% | On-site/Hybrid | Low | High |
+| Core UI Framework Author | SGD 5,500-7,500 | SGD 11,000-16,000 | SGD 18,000-26,000 | SGD 6,300-8,800 | SGD 12,500-18,500 | SGD 21,000-31,000 | ~15,000 | 40% | 66% | 42-46 | 80% | Hybrid/Remote | Low | Medium |
+| Chief Technology Officer | SGD 12,000-18,000 | SGD 25,000-35,000 | SGD 45,000-65,000 | SGD 14,000-21,500 | SGD 30,000-42,000 | SGD 54,000-78,000 | ~12,000 | 10% | 65% | 48-55 | 95% | On-site/Hybrid | Low | High |
 
 **Singapore Tech Context:** Culture: meritocratic, hybrid-forward, English-first. WLB ranked #1 in Asia but high unpaid OT reality. MAS TRM and PDPA compliance are major factors. High cost of living creates salary pressure. Common challenges: fintech complexity, MAS AI governance guidelines, 24/7 on-call for SRE/DevOps, senior engineer retention.
 
@@ -280,24 +280,24 @@ referencing a sector in prompts to avoid confusion between
 
 | Job Title | Local Fresh Grad | Local Avg | Local Senior | Intl Fresh Grad | Intl Avg | Intl Senior | Demand (6mo) | AI Risk | WLB% | Hrs/Wk | Stability% | Work Mode | Travel | Stress |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Junior Frontend Developer | THB 20,000-30,000 | THB 45,000-65,000 | THB 70,000-100,000 | THB 20,000-30,000 | THB 45,000-65,000 | THB 70,000-100,000 | ~120,000 | 35% | 62% | 45-48 | 80% | Hybrid | Low | Medium |
-| Junior Backend Developer | THB 22,000-32,000 | THB 45,000-70,000 | THB 75,000-110,000 | THB 22,000-32,000 | THB 45,000-70,000 | THB 75,000-110,000 | ~95,000 | 40% | 60% | 45-48 | 78% | Hybrid | Low | Medium |
-| QA Automation Engineer | THB 20,000-28,000 | THB 40,000-60,000 | THB 65,000-95,000 | THB 20,000-28,000 | THB 40,000-60,000 | THB 65,000-95,000 | ~40,000 | 30% | 63% | 45 | 82% | Hybrid | Low | Medium |
-| Systems Analyst | THB 20,000-30,000 | THB 42,000-65,000 | THB 70,000-100,000 | THB 20,000-30,000 | THB 42,000-65,000 | THB 70,000-100,000 | ~60,000 | 25% | 62% | 45-48 | 80% | Hybrid/On-site | Low | Medium |
-| Database Administrator | THB 22,000-32,000 | THB 45,000-68,000 | THB 75,000-110,000 | THB 22,000-32,000 | THB 45,000-68,000 | THB 75,000-110,000 | ~45,000 | 28% | 63% | 45 | 83% | Hybrid/On-site | Low | Medium |
-| Cloud Support Specialist | THB 22,000-30,000 | THB 45,000-70,000 | THB 75,000-110,000 | THB 22,000-30,000 | THB 45,000-70,000 | THB 75,000-110,000 | ~70,000 | 20% | 65% | 45-48 | 85% | Hybrid/Remote | Low | Medium |
-| Full Stack Engineer | THB 25,000-38,000 | THB 55,000-80,000 | THB 90,000-130,000 | THB 25,000-38,000 | THB 55,000-80,000 | THB 90,000-130,000 | ~110,000 | 38% | 60% | 45-50 | 80% | Hybrid | Low | High |
-| Mobile Applications Engineer | THB 22,000-35,000 | THB 50,000-75,000 | THB 80,000-120,000 | THB 22,000-35,000 | THB 50,000-75,000 | THB 80,000-120,000 | ~85,000 | 42% | 60% | 45-50 | 78% | Hybrid | Low | High |
-| DevOps Build Engineer | THB 28,000-40,000 | THB 60,000-90,000 | THB 95,000-140,000 | THB 28,000-40,000 | THB 60,000-90,000 | THB 95,000-140,000 | ~60,000 | 25% | 62% | 45-50 | 85% | Hybrid | Low | High |
-| Information Security Officer | THB 35,000-55,000 | THB 80,000-120,000 | THB 120,000-180,000 | THB 35,000-55,000 | THB 80,000-120,000 | THB 120,000-180,000 | ~75,000 | 15% | 63% | 45-50 | 88% | Hybrid/On-site | Low | High |
-| Solutions Architect | THB 40,000-60,000 | THB 85,000-130,000 | THB 130,000-200,000 | THB 40,000-60,000 | THB 85,000-130,000 | THB 130,000-200,000 | ~65,000 | 20% | 62% | 45-50 | 86% | Hybrid | Low | High |
-| AI Integration Specialist | THB 38,000-55,000 | THB 80,000-120,000 | THB 120,000-180,000 | THB 38,000-55,000 | THB 80,000-120,000 | THB 120,000-180,000 | ~50,000 | 45% | 62% | 45-50 | 81% | Hybrid/Remote | Low | High |
-| Site Reliability Architect | THB 40,000-60,000 | THB 85,000-125,000 | THB 130,000-190,000 | THB 40,000-60,000 | THB 85,000-125,000 | THB 130,000-190,000 | ~40,000 | 22% | 60% | 45-52 | 85% | Hybrid/On-site | Low | High |
-| Data Platform Engineer | THB 35,000-55,000 | THB 75,000-115,000 | THB 115,000-170,000 | THB 35,000-55,000 | THB 75,000-115,000 | THB 115,000-170,000 | ~55,000 | 30% | 62% | 45-48 | 83% | Hybrid | Low | Medium |
-| Principal Infrastructure Lead | THB 50,000-75,000 | THB 100,000-150,000 | THB 160,000-230,000 | THB 50,000-75,000 | THB 100,000-150,000 | THB 160,000-230,000 | ~25,000 | 18% | 62% | 45-50 | 88% | Hybrid/On-site | Low | High |
-| SecOps Director | THB 60,000-85,000 | THB 120,000-180,000 | THB 180,000-280,000 | THB 60,000-85,000 | THB 120,000-180,000 | THB 180,000-280,000 | ~20,000 | 12% | 63% | 45-50 | 90% | On-site | Low | High |
-| Core UI Framework Author | THB 35,000-55,000 | THB 75,000-115,000 | THB 115,000-170,000 | THB 35,000-55,000 | THB 75,000-115,000 | THB 115,000-170,000 | ~15,000 | 40% | 62% | 45-48 | 78% | Hybrid/Remote | Low | Medium |
-| Chief Technology Officer | THB 80,000-120,000 | THB 180,000-280,000 | THB 300,000-500,000 | THB 80,000-120,000 | THB 180,000-280,000 | THB 300,000-500,000 | ~12,000 | 10% | 60% | 48-58 | 92% | On-site/Hybrid | Low | High |
+| Junior Frontend Developer | THB 20,000-30,000 | THB 45,000-65,000 | THB 70,000-100,000 | THB 26,000-40,000 | THB 58,000-85,000 | THB 93,000-135,000 | ~120,000 | 35% | 62% | 45-48 | 80% | Hybrid | Low | Medium |
+| Junior Backend Developer | THB 22,000-32,000 | THB 45,000-70,000 | THB 75,000-110,000 | THB 28,000-43,000 | THB 58,000-92,000 | THB 100,000-148,000 | ~95,000 | 40% | 60% | 45-48 | 78% | Hybrid | Low | Medium |
+| QA Automation Engineer | THB 20,000-28,000 | THB 40,000-60,000 | THB 65,000-95,000 | THB 26,000-38,000 | THB 52,000-80,000 | THB 86,000-128,000 | ~40,000 | 30% | 63% | 45 | 82% | Hybrid | Low | Medium |
+| Systems Analyst | THB 20,000-30,000 | THB 42,000-65,000 | THB 70,000-100,000 | THB 26,000-40,000 | THB 54,000-85,000 | THB 92,000-135,000 | ~60,000 | 25% | 62% | 45-48 | 80% | Hybrid/On-site | Low | Medium |
+| Database Administrator | THB 22,000-32,000 | THB 45,000-68,000 | THB 75,000-110,000 | THB 28,000-43,000 | THB 58,000-90,000 | THB 100,000-148,000 | ~45,000 | 28% | 63% | 45 | 83% | Hybrid/On-site | Low | Medium |
+| Cloud Support Specialist | THB 22,000-30,000 | THB 45,000-70,000 | THB 75,000-110,000 | THB 28,000-40,000 | THB 58,000-92,000 | THB 100,000-148,000 | ~70,000 | 20% | 65% | 45-48 | 85% | Hybrid/Remote | Low | Medium |
+| Full Stack Engineer | THB 25,000-38,000 | THB 55,000-80,000 | THB 90,000-130,000 | THB 33,000-52,000 | THB 72,000-108,000 | THB 120,000-175,000 | ~110,000 | 38% | 60% | 45-50 | 80% | Hybrid | Low | High |
+| Mobile Applications Engineer | THB 22,000-35,000 | THB 50,000-75,000 | THB 80,000-120,000 | THB 29,000-47,000 | THB 65,000-100,000 | THB 107,000-162,000 | ~85,000 | 42% | 60% | 45-50 | 78% | Hybrid | Low | High |
+| DevOps Build Engineer | THB 28,000-40,000 | THB 60,000-90,000 | THB 95,000-140,000 | THB 37,000-54,000 | THB 79,000-120,000 | THB 126,000-189,000 | ~60,000 | 25% | 62% | 45-50 | 85% | Hybrid | Low | High |
+| Information Security Officer | THB 35,000-55,000 | THB 80,000-120,000 | THB 120,000-180,000 | THB 46,000-74,000 | THB 105,000-160,000 | THB 160,000-243,000 | ~75,000 | 15% | 63% | 45-50 | 88% | Hybrid/On-site | Low | High |
+| Solutions Architect | THB 40,000-60,000 | THB 85,000-130,000 | THB 130,000-200,000 | THB 53,000-81,000 | THB 112,000-175,000 | THB 173,000-270,000 | ~65,000 | 20% | 62% | 45-50 | 86% | Hybrid | Low | High |
+| AI Integration Specialist | THB 38,000-55,000 | THB 80,000-120,000 | THB 120,000-180,000 | THB 50,000-74,000 | THB 105,000-160,000 | THB 160,000-243,000 | ~50,000 | 45% | 62% | 45-50 | 81% | Hybrid/Remote | Low | High |
+| Site Reliability Architect | THB 40,000-60,000 | THB 85,000-125,000 | THB 130,000-190,000 | THB 53,000-81,000 | THB 112,000-168,000 | THB 173,000-257,000 | ~40,000 | 22% | 60% | 45-52 | 85% | Hybrid/On-site | Low | High |
+| Data Platform Engineer | THB 35,000-55,000 | THB 75,000-115,000 | THB 115,000-170,000 | THB 46,000-74,000 | THB 98,000-152,000 | THB 152,000-230,000 | ~55,000 | 30% | 62% | 45-48 | 83% | Hybrid | Low | Medium |
+| Principal Infrastructure Lead | THB 50,000-75,000 | THB 100,000-150,000 | THB 160,000-230,000 | THB 66,000-101,000 | THB 133,000-202,000 | THB 213,000-311,000 | ~25,000 | 18% | 62% | 45-50 | 88% | Hybrid/On-site | Low | High |
+| SecOps Director | THB 60,000-85,000 | THB 120,000-180,000 | THB 180,000-280,000 | THB 80,000-115,000 | THB 159,000-243,000 | THB 240,000-378,000 | ~20,000 | 12% | 63% | 45-50 | 90% | On-site | Low | High |
+| Core UI Framework Author | THB 35,000-55,000 | THB 75,000-115,000 | THB 115,000-170,000 | THB 46,000-74,000 | THB 98,000-152,000 | THB 152,000-230,000 | ~15,000 | 40% | 62% | 45-48 | 78% | Hybrid/Remote | Low | Medium |
+| Chief Technology Officer | THB 80,000-120,000 | THB 180,000-280,000 | THB 300,000-500,000 | THB 107,000-162,000 | THB 240,000-378,000 | THB 400,000-675,000 | ~12,000 | 10% | 60% | 48-58 | 92% | On-site/Hybrid | Low | High |
 
 **Thailand Tech Context:** Culture: hierarchical, relationship-driven, hybrid growing. Bangkok is the #1 digital nomad city globally (2025). Thai Labour Protection Act caps statutory hours at 48/wk. Common challenges: Bangkok commute stress, senior-approval culture slowing architecture sign-off, limited local DevOps/SRE talent, PDPA enforcement. Hours tend to run 45-50+ for senior roles.
 
@@ -307,24 +307,24 @@ referencing a sector in prompts to avoid confusion between
 
 | Job Title | Local Fresh Grad | Local Avg | Local Senior | Intl Fresh Grad | Intl Avg | Intl Senior | Demand (6mo) | AI Risk | WLB% | Hrs/Wk | Stability% | Work Mode | Travel | Stress |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Junior Frontend Developer | VND 8-15M | VND 20-35M | VND 40-65M | VND 8-15M | VND 20-35M | VND 40-65M | ~120,000 | 35% | 63% | 40-44 | 78% | Hybrid | Low | Medium |
-| Junior Backend Developer | VND 10-18M | VND 22-40M | VND 45-70M | VND 10-18M | VND 22-40M | VND 45-70M | ~95,000 | 40% | 61% | 40-45 | 75% | Hybrid | Low | Medium |
-| QA Automation Engineer | VND 8-14M | VND 18-32M | VND 35-60M | VND 8-14M | VND 18-32M | VND 35-60M | ~40,000 | 30% | 63% | 40 | 78% | Hybrid | Low | Medium |
-| Systems Analyst | VND 8-15M | VND 18-32M | VND 35-60M | VND 8-15M | VND 18-32M | VND 35-60M | ~60,000 | 25% | 62% | 40-44 | 75% | Hybrid/On-site | Low | Medium |
-| Database Administrator | VND 10-16M | VND 20-35M | VND 40-65M | VND 10-16M | VND 20-35M | VND 40-65M | ~45,000 | 28% | 63% | 40 | 78% | Hybrid/On-site | Low | Medium |
-| Cloud Support Specialist | VND 10-16M | VND 20-35M | VND 40-65M | VND 10-16M | VND 20-35M | VND 40-65M | ~70,000 | 20% | 65% | 40-44 | 80% | Hybrid/Remote | Low | Medium |
-| Full Stack Engineer | VND 12-22M | VND 28-50M | VND 55-90M | VND 12-22M | VND 28-50M | VND 55-90M | ~110,000 | 38% | 61% | 40-46 | 75% | Hybrid | Low | High |
-| Mobile Applications Engineer | VND 10-20M | VND 25-45M | VND 50-85M | VND 10-20M | VND 25-45M | VND 50-85M | ~85,000 | 42% | 61% | 40-46 | 72% | Hybrid | Low | High |
-| DevOps Build Engineer | VND 15-28M | VND 30-55M | VND 55-90M | VND 15-28M | VND 30-55M | VND 55-90M | ~60,000 | 25% | 61% | 40-46 | 78% | Hybrid | Low | High |
-| Information Security Officer | VND 20-40M | VND 50-90M | VND 90-160M | VND 20-40M | VND 50-90M | VND 90-160M | ~75,000 | 15% | 62% | 40-46 | 80% | Hybrid/On-site | Low | High |
-| Solutions Architect | VND 25-45M | VND 55-100M | VND 100-180M | VND 25-45M | VND 55-100M | VND 100-180M | ~65,000 | 20% | 62% | 40-46 | 78% | Hybrid | Low | High |
-| AI Integration Specialist | VND 25-45M | VND 55-100M | VND 100-175M | VND 25-45M | VND 55-100M | VND 100-175M | ~50,000 | 45% | 61% | 40-46 | 75% | Hybrid/Remote | Low | High |
-| Site Reliability Architect | VND 28-50M | VND 60-110M | VND 110-190M | VND 28-50M | VND 60-110M | VND 110-190M | ~40,000 | 22% | 60% | 40-48 | 78% | Hybrid/On-site | Low | High |
-| Data Platform Engineer | VND 20-38M | VND 45-85M | VND 85-150M | VND 20-38M | VND 45-85M | VND 85-150M | ~55,000 | 30% | 62% | 40-45 | 78% | Hybrid | Low | Medium |
-| Principal Infrastructure Lead | VND 35-60M | VND 80-140M | VND 150-250M | VND 35-60M | VND 80-140M | VND 150-250M | ~25,000 | 18% | 61% | 40-47 | 80% | Hybrid/On-site | Low | High |
-| SecOps Director | VND 45-80M | VND 100-180M | VND 180-300M | VND 45-80M | VND 100-180M | VND 180-300M | ~20,000 | 12% | 62% | 40-48 | 82% | On-site/Hybrid | Low | High |
-| Core UI Framework Author | VND 25-45M | VND 55-95M | VND 95-160M | VND 25-45M | VND 55-95M | VND 95-160M | ~15,000 | 40% | 62% | 40-45 | 72% | Hybrid/Remote | Low | Medium |
-| Chief Technology Officer | VND 60-120M | VND 150-280M | VND 300-600M | VND 60-120M | VND 150-280M | VND 300-600M | ~12,000 | 10% | 60% | 47-56 | 85% | On-site/Hybrid | Low | High |
+| Junior Frontend Developer | VND 8-15M | VND 20-35M | VND 40-65M | VND 12-22M | VND 28-50M | VND 58-95M | ~120,000 | 35% | 63% | 40-44 | 78% | Hybrid | Low | Medium |
+| Junior Backend Developer | VND 10-18M | VND 22-40M | VND 45-70M | VND 14-26M | VND 32-58M | VND 65-102M | ~95,000 | 40% | 61% | 40-45 | 75% | Hybrid | Low | Medium |
+| QA Automation Engineer | VND 8-14M | VND 18-32M | VND 35-60M | VND 11-20M | VND 25-46M | VND 50-87M | ~40,000 | 30% | 63% | 40 | 78% | Hybrid | Low | Medium |
+| Systems Analyst | VND 8-15M | VND 18-32M | VND 35-60M | VND 11-22M | VND 25-46M | VND 50-87M | ~60,000 | 25% | 62% | 40-44 | 75% | Hybrid/On-site | Low | Medium |
+| Database Administrator | VND 10-16M | VND 20-35M | VND 40-65M | VND 14-23M | VND 28-50M | VND 58-95M | ~45,000 | 28% | 63% | 40 | 78% | Hybrid/On-site | Low | Medium |
+| Cloud Support Specialist | VND 10-16M | VND 20-35M | VND 40-65M | VND 14-23M | VND 28-50M | VND 58-95M | ~70,000 | 20% | 65% | 40-44 | 80% | Hybrid/Remote | Low | Medium |
+| Full Stack Engineer | VND 12-22M | VND 28-50M | VND 55-90M | VND 17-32M | VND 40-72M | VND 80-130M | ~110,000 | 38% | 61% | 40-46 | 75% | Hybrid | Low | High |
+| Mobile Applications Engineer | VND 10-20M | VND 25-45M | VND 50-85M | VND 14-29M | VND 36-65M | VND 72-123M | ~85,000 | 42% | 61% | 40-46 | 72% | Hybrid | Low | High |
+| DevOps Build Engineer | VND 15-28M | VND 30-55M | VND 55-90M | VND 21-40M | VND 43-80M | VND 80-130M | ~60,000 | 25% | 61% | 40-46 | 78% | Hybrid | Low | High |
+| Information Security Officer | VND 20-40M | VND 50-90M | VND 90-160M | VND 28-58M | VND 72-130M | VND 130-232M | ~75,000 | 15% | 62% | 40-46 | 80% | Hybrid/On-site | Low | High |
+| Solutions Architect | VND 25-45M | VND 55-100M | VND 100-180M | VND 36-65M | VND 80-145M | VND 145-261M | ~65,000 | 20% | 62% | 40-46 | 78% | Hybrid | Low | High |
+| AI Integration Specialist | VND 25-45M | VND 55-100M | VND 100-175M | VND 36-65M | VND 80-145M | VND 145-254M | ~50,000 | 45% | 61% | 40-46 | 75% | Hybrid/Remote | Low | High |
+| Site Reliability Architect | VND 28-50M | VND 60-110M | VND 110-190M | VND 40-72M | VND 87-160M | VND 160-276M | ~40,000 | 22% | 60% | 40-48 | 78% | Hybrid/On-site | Low | High |
+| Data Platform Engineer | VND 20-38M | VND 45-85M | VND 85-150M | VND 28-55M | VND 65-123M | VND 123-218M | ~55,000 | 30% | 62% | 40-45 | 78% | Hybrid | Low | Medium |
+| Principal Infrastructure Lead | VND 35-60M | VND 80-140M | VND 150-250M | VND 50-87M | VND 116-203M | VND 218-363M | ~25,000 | 18% | 61% | 40-47 | 80% | Hybrid/On-site | Low | High |
+| SecOps Director | VND 45-80M | VND 100-180M | VND 180-300M | VND 65-116M | VND 145-261M | VND 261-435M | ~20,000 | 12% | 62% | 40-48 | 82% | On-site/Hybrid | Low | High |
+| Core UI Framework Author | VND 25-45M | VND 55-95M | VND 95-160M | VND 36-65M | VND 80-138M | VND 138-232M | ~15,000 | 40% | 62% | 40-45 | 72% | Hybrid/Remote | Low | Medium |
+| Chief Technology Officer | VND 60-120M | VND 150-280M | VND 300-600M | VND 87-174M | VND 218-406M | VND 435-870M | ~12,000 | 10% | 60% | 47-56 | 85% | On-site/Hybrid | Low | High |
 
 **Vietnam Tech Context:** WLB ranked 37/60 globally -- best among lower-income SEA nations. Culture: hierarchical, consensus-driven, midday rest common. HCMC commands a salary premium over Hanoi. Key challenges: PDPD law enforcement, $716M annual cybercrime cost, limited expert pool for security/SRE, consensus-based sign-off slowing architecture decisions, government AI strategy uncertainty. Data sourced from itviec 2025-2026, vietnamdevs 2026, NodeFlair VN.
 
@@ -334,53 +334,53 @@ referencing a sector in prompts to avoid confusion between
 
 | Job Title | Local Fresh Grad | Local Avg | Local Senior | Intl Fresh Grad | Intl Avg | Intl Senior | Demand (6mo) | AI Risk | WLB% | Hrs/Wk | Stability% | Work Mode | Travel | Stress |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Junior Frontend Developer | PHP 20,000-35,000 | PHP 50,000-80,000 | PHP 90,000-150,000 | PHP 20,000-35,000 | PHP 50,000-80,000 | PHP 90,000-150,000 | ~120,000 | 35% | 52% | 40-45 | 78% | Hybrid/Remote | Low | Medium |
-| Junior Backend Developer | PHP 22,000-38,000 | PHP 55,000-90,000 | PHP 100,000-170,000 | PHP 22,000-38,000 | PHP 55,000-90,000 | PHP 100,000-170,000 | ~95,000 | 40% | 50% | 40-45 | 75% | Hybrid/Remote | Low | Medium |
-| QA Automation Engineer | PHP 20,000-35,000 | PHP 45,000-75,000 | PHP 80,000-130,000 | PHP 20,000-35,000 | PHP 45,000-75,000 | PHP 80,000-130,000 | ~40,000 | 30% | 54% | 40 | 78% | Hybrid/Remote | Low | Medium |
-| Systems Analyst | PHP 20,000-35,000 | PHP 45,000-75,000 | PHP 85,000-140,000 | PHP 20,000-35,000 | PHP 45,000-75,000 | PHP 85,000-140,000 | ~60,000 | 25% | 52% | 40-45 | 75% | Hybrid | Low | Medium |
-| Database Administrator | PHP 22,000-38,000 | PHP 50,000-80,000 | PHP 90,000-150,000 | PHP 22,000-38,000 | PHP 50,000-80,000 | PHP 90,000-150,000 | ~45,000 | 28% | 53% | 40 | 78% | Hybrid | Low | Medium |
-| Cloud Support Specialist | PHP 22,000-35,000 | PHP 50,000-80,000 | PHP 90,000-140,000 | PHP 22,000-35,000 | PHP 50,000-80,000 | PHP 90,000-140,000 | ~70,000 | 20% | 55% | 40-45 | 80% | Hybrid/Remote | Low | Medium |
-| Full Stack Engineer | PHP 25,000-45,000 | PHP 60,000-100,000 | PHP 110,000-200,000 | PHP 25,000-45,000 | PHP 60,000-100,000 | PHP 110,000-200,000 | ~110,000 | 38% | 50% | 40-47 | 75% | Hybrid/Remote | Low | High |
-| Mobile Applications Engineer | PHP 22,000-40,000 | PHP 55,000-90,000 | PHP 100,000-180,000 | PHP 22,000-40,000 | PHP 55,000-90,000 | PHP 100,000-180,000 | ~85,000 | 42% | 50% | 40-47 | 72% | Hybrid/Remote | Low | High |
-| DevOps Build Engineer | PHP 30,000-55,000 | PHP 80,000-120,000 | PHP 140,000-200,000 | PHP 30,000-55,000 | PHP 80,000-120,000 | PHP 140,000-200,000 | ~60,000 | 25% | 50% | 40-48 | 78% | Hybrid/Remote | Low | High |
-| Information Security Officer | PHP 50,000-80,000 | PHP 120,000-165,000 | PHP 150,000-250,000 | PHP 50,000-80,000 | PHP 120,000-165,000 | PHP 150,000-250,000 | ~75,000 | 15% | 52% | 40-47 | 82% | Hybrid/On-site | Low | High |
-| Solutions Architect | PHP 55,000-90,000 | PHP 120,000-180,000 | PHP 200,000-300,000 | PHP 55,000-90,000 | PHP 120,000-180,000 | PHP 200,000-300,000 | ~65,000 | 20% | 52% | 40-47 | 80% | Hybrid | Low | High |
-| AI Integration Specialist | PHP 50,000-80,000 | PHP 110,000-160,000 | PHP 180,000-280,000 | PHP 50,000-80,000 | PHP 110,000-160,000 | PHP 180,000-280,000 | ~50,000 | 45% | 50% | 40-47 | 75% | Hybrid/Remote | Low | High |
-| Site Reliability Architect | PHP 55,000-90,000 | PHP 120,000-180,000 | PHP 200,000-300,000 | PHP 55,000-90,000 | PHP 120,000-180,000 | PHP 200,000-300,000 | ~40,000 | 22% | 50% | 40-50 | 78% | Hybrid/On-site | Low | High |
-| Data Platform Engineer | PHP 45,000-75,000 | PHP 100,000-160,000 | PHP 170,000-280,000 | PHP 45,000-75,000 | PHP 100,000-160,000 | PHP 170,000-280,000 | ~55,000 | 30% | 52% | 40-47 | 78% | Hybrid/Remote | Low | Medium |
-| Principal Infrastructure Lead | PHP 60,000-100,000 | PHP 140,000-200,000 | PHP 230,000-350,000 | PHP 60,000-100,000 | PHP 140,000-200,000 | PHP 230,000-350,000 | ~25,000 | 18% | 50% | 40-48 | 80% | Hybrid/On-site | Low | High |
-| SecOps Director | PHP 80,000-120,000 | PHP 150,000-250,000 | PHP 280,000-450,000 | PHP 80,000-120,000 | PHP 150,000-250,000 | PHP 280,000-450,000 | ~20,000 | 12% | 52% | 40-48 | 82% | On-site/Hybrid | Low | High |
-| Core UI Framework Author | PHP 45,000-75,000 | PHP 100,000-150,000 | PHP 170,000-260,000 | PHP 45,000-75,000 | PHP 100,000-150,000 | PHP 170,000-260,000 | ~15,000 | 40% | 52% | 40-46 | 72% | Hybrid/Remote | Low | Medium |
-| Chief Technology Officer | PHP 120,000-200,000 | PHP 300,000-500,000 | PHP 600,000-900,000 | PHP 120,000-200,000 | PHP 300,000-500,000 | PHP 600,000-900,000 | ~12,000 | 10% | 48% | 47-58 | 85% | On-site/Hybrid | Low | High |
+| Junior Frontend Developer | PHP 20,000-35,000 | PHP 50,000-80,000 | PHP 90,000-150,000 | PHP 28,000-50,000 | PHP 70,000-115,000 | PHP 130,000-218,000 | ~120,000 | 35% | 52% | 40-45 | 78% | Hybrid/Remote | Low | Medium |
+| Junior Backend Developer | PHP 22,000-38,000 | PHP 55,000-90,000 | PHP 100,000-170,000 | PHP 31,000-55,000 | PHP 78,000-130,000 | PHP 145,000-247,000 | ~95,000 | 40% | 50% | 40-45 | 75% | Hybrid/Remote | Low | Medium |
+| QA Automation Engineer | PHP 20,000-35,000 | PHP 45,000-75,000 | PHP 80,000-130,000 | PHP 28,000-50,000 | PHP 63,000-108,000 | PHP 116,000-189,000 | ~40,000 | 30% | 54% | 40 | 78% | Hybrid/Remote | Low | Medium |
+| Systems Analyst | PHP 20,000-35,000 | PHP 45,000-75,000 | PHP 85,000-140,000 | PHP 28,000-50,000 | PHP 63,000-108,000 | PHP 123,000-203,000 | ~60,000 | 25% | 52% | 40-45 | 75% | Hybrid | Low | Medium |
+| Database Administrator | PHP 22,000-38,000 | PHP 50,000-80,000 | PHP 90,000-150,000 | PHP 31,000-55,000 | PHP 70,000-116,000 | PHP 130,000-218,000 | ~45,000 | 28% | 53% | 40 | 78% | Hybrid | Low | Medium |
+| Cloud Support Specialist | PHP 22,000-35,000 | PHP 50,000-80,000 | PHP 90,000-140,000 | PHP 31,000-50,000 | PHP 70,000-116,000 | PHP 130,000-203,000 | ~70,000 | 20% | 55% | 40-45 | 80% | Hybrid/Remote | Low | Medium |
+| Full Stack Engineer | PHP 25,000-45,000 | PHP 60,000-100,000 | PHP 110,000-200,000 | PHP 35,000-65,000 | PHP 85,000-145,000 | PHP 160,000-290,000 | ~110,000 | 38% | 50% | 40-47 | 75% | Hybrid/Remote | Low | High |
+| Mobile Applications Engineer | PHP 22,000-40,000 | PHP 55,000-90,000 | PHP 100,000-180,000 | PHP 31,000-58,000 | PHP 78,000-130,000 | PHP 145,000-261,000 | ~85,000 | 42% | 50% | 40-47 | 72% | Hybrid/Remote | Low | High |
+| DevOps Build Engineer | PHP 30,000-55,000 | PHP 80,000-120,000 | PHP 140,000-200,000 | PHP 42,000-80,000 | PHP 113,000-174,000 | PHP 203,000-290,000 | ~60,000 | 25% | 50% | 40-48 | 78% | Hybrid/Remote | Low | High |
+| Information Security Officer | PHP 50,000-80,000 | PHP 120,000-165,000 | PHP 150,000-250,000 | PHP 70,000-116,000 | PHP 170,000-239,000 | PHP 218,000-363,000 | ~75,000 | 15% | 52% | 40-47 | 82% | Hybrid/On-site | Low | High |
+| Solutions Architect | PHP 55,000-90,000 | PHP 120,000-180,000 | PHP 200,000-300,000 | PHP 78,000-130,000 | PHP 170,000-261,000 | PHP 290,000-435,000 | ~65,000 | 20% | 52% | 40-47 | 80% | Hybrid | Low | High |
+| AI Integration Specialist | PHP 50,000-80,000 | PHP 110,000-160,000 | PHP 180,000-280,000 | PHP 70,000-116,000 | PHP 156,000-232,000 | PHP 261,000-406,000 | ~50,000 | 45% | 50% | 40-47 | 75% | Hybrid/Remote | Low | High |
+| Site Reliability Architect | PHP 55,000-90,000 | PHP 120,000-180,000 | PHP 200,000-300,000 | PHP 78,000-130,000 | PHP 170,000-261,000 | PHP 290,000-435,000 | ~40,000 | 22% | 50% | 40-50 | 78% | Hybrid/On-site | Low | High |
+| Data Platform Engineer | PHP 45,000-75,000 | PHP 100,000-160,000 | PHP 170,000-280,000 | PHP 63,000-108,000 | PHP 142,000-232,000 | PHP 247,000-406,000 | ~55,000 | 30% | 52% | 40-47 | 78% | Hybrid/Remote | Low | Medium |
+| Principal Infrastructure Lead | PHP 60,000-100,000 | PHP 140,000-200,000 | PHP 230,000-350,000 | PHP 85,000-145,000 | PHP 198,000-290,000 | PHP 334,000-508,000 | ~25,000 | 18% | 50% | 40-48 | 80% | Hybrid/On-site | Low | High |
+| SecOps Director | PHP 80,000-120,000 | PHP 150,000-250,000 | PHP 280,000-450,000 | PHP 113,000-174,000 | PHP 213,000-363,000 | PHP 406,000-653,000 | ~20,000 | 12% | 52% | 40-48 | 82% | On-site/Hybrid | Low | High |
+| Core UI Framework Author | PHP 45,000-75,000 | PHP 100,000-150,000 | PHP 170,000-260,000 | PHP 63,000-108,000 | PHP 142,000-218,000 | PHP 247,000-377,000 | ~15,000 | 40% | 52% | 40-46 | 72% | Hybrid/Remote | Low | Medium |
+| Chief Technology Officer | PHP 120,000-200,000 | PHP 300,000-500,000 | PHP 600,000-900,000 | PHP 170,000-290,000 | PHP 425,000-725,000 | PHP 870,000-1,305,000 | ~12,000 | 10% | 48% | 47-58 | 85% | On-site/Hybrid | Low | High |
 
 **Philippines Tech Context:** WLB ranked 59/60 globally (2024 Remote Index) -- worst in SEA. Culture: English-first, BPO-influenced, strong remote culture. Manila/BGC-centric talent market. Key issues: 8,800+ daily cyberattacks on Philippine organisations, AI disruption threatening the BPO sector, typhoon-season connectivity outages, low pay vs global peers causing talent drain abroad. Data sourced from JobStreet PH, SecondTalent 2026, Nucamp 2025.
 
 ---
 
-### LAOS (Currency: USD -- LAK too volatile for reliable ranges)
+### LAOS (Currency: LAK millions/month)
 
-| Job Title | Fresh Grad (USD) | Average (USD) | Senior (USD) | Demand (6mo) | AI Risk | WLB% | Hrs/Wk | Stability% | Work Mode | Travel | Stress |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| Junior Frontend Developer | USD 200-350 | USD 500-800 | USD 900-1,400 | ~3,000 | 35% | 65% | 45-48 | 70% | On-site/Hybrid | Low | Low |
-| Junior Backend Developer | USD 200-350 | USD 500-850 | USD 1,000-1,600 | ~2,500 | 40% | 63% | 45-48 | 68% | On-site/Hybrid | Low | Low |
-| QA Automation Engineer | USD 180-300 | USD 450-750 | USD 800-1,300 | ~1,000 | 30% | 65% | 45 | 70% | On-site | Low | Low |
-| Systems Analyst | USD 200-350 | USD 500-800 | USD 900-1,400 | ~1,500 | 25% | 65% | 45-48 | 72% | On-site | Low | Low |
-| Database Administrator | USD 200-350 | USD 500-850 | USD 950-1,500 | ~1,200 | 28% | 65% | 45 | 72% | On-site | Low | Low |
-| Cloud Support Specialist | USD 200-320 | USD 500-800 | USD 900-1,400 | ~1,500 | 20% | 66% | 45-48 | 70% | Hybrid | Low | Low |
-| Full Stack Engineer | USD 250-400 | USD 600-1,000 | USD 1,200-2,000 | ~3,000 | 38% | 63% | 45-48 | 68% | On-site/Hybrid | Low | Medium |
-| Mobile Applications Engineer | USD 220-380 | USD 550-900 | USD 1,000-1,800 | ~2,000 | 42% | 63% | 45-48 | 65% | On-site/Hybrid | Low | Medium |
-| DevOps Build Engineer | USD 250-400 | USD 600-1,000 | USD 1,200-2,000 | ~1,500 | 25% | 63% | 45-48 | 68% | Hybrid | Low | Medium |
-| Information Security Officer | USD 300-500 | USD 700-1,200 | USD 1,500-2,500 | ~1,000 | 15% | 65% | 45-48 | 75% | On-site | Low | Medium |
-| Solutions Architect | USD 350-550 | USD 800-1,400 | USD 1,800-3,000 | ~1,200 | 20% | 64% | 45-48 | 70% | On-site/Hybrid | Low | Medium |
-| AI Integration Specialist | USD 300-500 | USD 750-1,300 | USD 1,500-2,500 | ~800 | 45% | 62% | 45-48 | 65% | Hybrid/Remote | Low | Medium |
-| Site Reliability Architect | USD 300-500 | USD 750-1,300 | USD 1,500-2,500 | ~600 | 22% | 63% | 45-50 | 68% | On-site/Hybrid | Low | Medium |
-| Data Platform Engineer | USD 280-450 | USD 650-1,100 | USD 1,300-2,200 | ~800 | 30% | 64% | 45-48 | 68% | On-site/Hybrid | Low | Low |
-| Principal Infrastructure Lead | USD 400-650 | USD 1,000-1,800 | USD 2,000-3,500 | ~500 | 18% | 63% | 45-50 | 72% | On-site | Low | Medium |
-| SecOps Director | USD 500-800 | USD 1,200-2,000 | USD 2,500-4,000 | ~300 | 12% | 64% | 45-50 | 75% | On-site | Low | Medium |
-| Core UI Framework Author | USD 300-500 | USD 700-1,200 | USD 1,400-2,200 | ~400 | 40% | 63% | 45-48 | 62% | Hybrid/Remote | Low | Low |
-| Chief Technology Officer | USD 800-1,500 | USD 2,000-4,000 | USD 5,000-9,000 | ~200 | 10% | 62% | 48-55 | 78% | On-site | Low | High |
+| Job Title | Local Fresh Grad | Local Avg | Local Senior | Intl Fresh Grad | Intl Avg | Intl Senior | Demand (6mo) | AI Risk | WLB% | Hrs/Wk | Stability% | Work Mode | Stress |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Junior Frontend Developer | LAK 4,000,000–7,000,000 | LAK 10,000,000–16,000,000 | LAK 18,000,000–28,000,000 | LAK 4,500,000–7,500,000 | LAK 12,000,000–18,000,000 | LAK 20,000,000–30,000,000 | ~3,000 | 35% | 65% | 45–48 | 70% | On-site/Hybrid | Low |
+| Junior Backend Developer | LAK 4,000,000–7,000,000 | LAK 10,000,000–17,000,000 | LAK 20,000,000–32,000,000 | LAK 4,500,000–8,000,000 | LAK 12,000,000–20,000,000 | LAK 22,000,000–35,000,000 | ~2,500 | 40% | 63% | 45–48 | 68% | On-site/Hybrid | Low |
+| QA Automation Engineer | LAK 3,600,000–6,000,000 | LAK 9,000,000–15,000,000 | LAK 16,000,000–26,000,000 | LAK 4,000,000–6,500,000 | LAK 10,000,000–16,000,000 | LAK 18,000,000–28,000,000 | ~1,000 | 30% | 65% | 45 | 70% | On-site | Low |
+| Systems Analyst | LAK 4,000,000–7,000,000 | LAK 10,000,000–16,000,000 | LAK 18,000,000–28,000,000 | LAK 4,500,000–7,500,000 | LAK 12,000,000–18,000,000 | LAK 20,000,000–30,000,000 | ~1,500 | 25% | 65% | 45–48 | 72% | On-site | Low |
+| Database Administrator | LAK 4,000,000–7,000,000 | LAK 10,000,000–17,000,000 | LAK 19,000,000–30,000,000 | LAK 4,500,000–8,000,000 | LAK 12,000,000–20,000,000 | LAK 22,000,000–35,000,000 | ~1,200 | 28% | 65% | 45 | 72% | On-site | Low |
+| Cloud Support Specialist | LAK 4,000,000–6,400,000 | LAK 10,000,000–16,000,000 | LAK 18,000,000–28,000,000 | LAK 4,500,000–7,000,000 | LAK 12,000,000–18,000,000 | LAK 20,000,000–30,000,000 | ~1,500 | 20% | 66% | 45–48 | 70% | Hybrid | Low |
+| Full Stack Engineer | LAK 5,000,000–8,000,000 | LAK 12,000,000–20,000,000 | LAK 24,000,000–40,000,000 | LAK 6,000,000–9,000,000 | LAK 14,000,000–22,000,000 | LAK 26,000,000–42,000,000 | ~3,000 | 38% | 63% | 45–48 | 68% | On-site/Hybrid | Medium |
+| Mobile Applications Engineer | LAK 4,400,000–7,600,000 | LAK 11,000,000–19,000,000 | LAK 22,000,000–36,000,000 | LAK 5,000,000–8,000,000 | LAK 12,000,000–20,000,000 | LAK 24,000,000–38,000,000 | ~2,000 | 42% | 63% | 45–48 | 65% | On-site/Hybrid | Medium |
+| DevOps Build Engineer | LAK 5,000,000–8,000,000 | LAK 13,000,000–22,000,000 | LAK 26,000,000–44,000,000 | LAK 6,000,000–9,000,000 | LAK 15,000,000–24,000,000 | LAK 28,000,000–46,000,000 | ~1,500 | 25% | 63% | 45–48 | 68% | Hybrid | Medium |
+| Information Security Officer | LAK 6,000,000–10,000,000 | LAK 16,000,000–26,000,000 | LAK 30,000,000–50,000,000 | LAK 7,000,000–11,000,000 | LAK 18,000,000–28,000,000 | LAK 32,000,000–52,000,000 | ~1,000 | 15% | 65% | 45–48 | 75% | On-site | Medium |
+| Solutions Architect | LAK 7,000,000–12,000,000 | LAK 18,000,000–30,000,000 | LAK 36,000,000–56,000,000 | LAK 8,000,000–13,000,000 | LAK 20,000,000–32,000,000 | LAK 38,000,000–60,000,000 | ~1,200 | 20% | 64% | 45–48 | 70% | On-site/Hybrid | Medium |
+| AI Integration Specialist | LAK 7,000,000–12,000,000 | LAK 18,000,000–30,000,000 | LAK 36,000,000–56,000,000 | LAK 8,000,000–13,000,000 | LAK 20,000,000–32,000,000 | LAK 38,000,000–60,000,000 | ~800 | 45% | 62% | 45–48 | 65% | Hybrid/Remote | Medium |
+| Site Reliability Architect | LAK 8,000,000–13,000,000 | LAK 20,000,000–32,000,000 | LAK 40,000,000–60,000,000 | LAK 9,000,000–14,000,000 | LAK 22,000,000–35,000,000 | LAK 42,000,000–65,000,000 | ~600 | 22% | 63% | 45–50 | 68% | On-site/Hybrid | Medium |
+| Data Platform Engineer | LAK 6,000,000–10,000,000 | LAK 16,000,000–26,000,000 | LAK 32,000,000–50,000,000 | LAK 7,000,000–11,000,000 | LAK 18,000,000–28,000,000 | LAK 34,000,000–52,000,000 | ~800 | 30% | 64% | 45–48 | 68% | On-site/Hybrid | Low |
+| Principal Infrastructure Lead | LAK 10,000,000–16,000,000 | LAK 24,000,000–40,000,000 | LAK 50,000,000–76,000,000 | LAK 12,000,000–18,000,000 | LAK 28,000,000–44,000,000 | LAK 54,000,000–80,000,000 | ~500 | 18% | 63% | 45–50 | 72% | On-site | Medium |
+| SecOps Director | LAK 12,000,000–20,000,000 | LAK 30,000,000–50,000,000 | LAK 60,000,000–90,000,000 | LAK 14,000,000–22,000,000 | LAK 34,000,000–54,000,000 | LAK 64,000,000–96,000,000 | ~300 | 12% | 64% | 45–50 | 75% | On-site | Medium |
+| Core UI Framework Author | LAK 7,000,000–12,000,000 | LAK 18,000,000–30,000,000 | LAK 36,000,000–56,000,000 | LAK 8,000,000–13,000,000 | LAK 20,000,000–32,000,000 | LAK 38,000,000–60,000,000 | ~400 | 40% | 63% | 45–48 | 62% | Hybrid/Remote | Low |
+| Chief Technology Officer | LAK 16,000,000–24,000,000 | LAK 40,000,000–70,000,000 | LAK 80,000,000–120,000,000 | LAK 18,000,000–28,000,000 | LAK 45,000,000–80,000,000 | LAK 90,000,000–140,000,000 | ~200 | 10% | 65% | 48–55 | 80% | On-site/Hybrid | High |
 
-**Laos Tech Context:** Smallest and most nascent tech sector in this dataset. Vientiane-centric. Culture: collectivist, hierarchical, Buddhist-influenced, on-site dominant. Salaries quoted in USD due to LAK volatility. Key challenges: very limited local talent pool, nascent DevOps/CI-CD/SRE culture, connectivity and power reliability issues, small enterprise market, most AI/cloud work is outsourced or remote. No WLB global index ranking available. Data sourced from Paylab, worldsalaries, remotepeople 2025.
+**Laos Tech Context:** Smallest and most nascent tech sector in this dataset. Vientiane-centric. Culture: collectivist, hierarchical, Buddhist-influenced, on-site dominant. Salaries in LAK (Lao Kip); local employer rates reflect the domestic market while international company rates carry a meaningful premium. Key challenges: very limited local talent pool, nascent DevOps/CI-CD/SRE culture, connectivity and power reliability issues, small enterprise market, most AI/cloud work is outsourced or remote. No WLB global index ranking available. Data sourced from Paylab, worldsalaries, remotepeople 2025.
 
 ---
 
